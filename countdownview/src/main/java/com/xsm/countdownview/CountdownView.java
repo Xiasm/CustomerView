@@ -1,4 +1,4 @@
-package com.xsm.customerview.widgets;
+package com.xsm.countdownview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,8 +10,6 @@ import android.support.annotation.Nullable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
-
-import com.xsm.customerview.R;
 
 /**
  * Author: 夏胜明

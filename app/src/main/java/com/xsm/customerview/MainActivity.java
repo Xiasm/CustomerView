@@ -4,9 +4,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 
-import com.xsm.customerview.widgets.CountdownView;
+import com.xsm.countdownview.CountdownView;
+
 
 public class MainActivity extends AppCompatActivity {
 

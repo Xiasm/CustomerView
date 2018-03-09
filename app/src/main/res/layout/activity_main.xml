@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     tools:context="com.xsm.customerview.MainActivity">
 
-    <com.xsm.customerview.widgets.CountdownView
+    <com.xsm.countdownview.CountdownView
         android:id="@+id/countdownView"
         android:background="#121212"
         app:strokeWidth="1dp"
