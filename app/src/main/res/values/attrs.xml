@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CountdownView">
+        <attr name="strokeColor" format="color"/>
+        <attr name="strokeWidth" format="dimension"/>
+        <attr name="loadingColor" format="color"/>
+        <attr name="loadingWidth" format="dimension"/>
+        <attr name="numberColor" format="color"/>
+        <attr name="numberSize" format="dimension"/>
+        <attr name="numberSuffixText" format="string"/>
+        <attr name="numberSuffixColor" format="color"/>
+        <attr name="numberSuffixSize" format="dimension"/>
+    </declare-styleable>
+</resources>
