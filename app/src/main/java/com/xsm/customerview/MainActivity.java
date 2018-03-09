@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         number = 60;
         mCountdownView.setTotalProgress(60);
         mHandler.sendEmptyMessageDelayed(1, 2000);
+
     }
 
 
