@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CountdownView">
+        <attr name="widgetsCountdownViewStrokeColor" format="color"/>
+        <attr name="widgetsCountdownViewStrokeWidth" format="dimension"/>
+        <attr name="widgetsCountdownViewLoadingColor" format="color"/>
+        <attr name="widgetsCountdownViewLoadingWidth" format="dimension"/>
+        <attr name="widgetsCountdownViewNumberColor" format="color"/>
+        <attr name="widgetsCountdownViewNumberSize" format="dimension"/>
+        <attr name="widgetsCountdownViewNumberSuffixText" format="string"/>
+        <attr name="widgetsCountdownViewNumberSuffixColor" format="color"/>
+        <attr name="widgetsCountdownViewNumberSuffixSize" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="ChargingView">
+        <attr name="widgetsChargingViewOutCircleColor" format="color"/>
+        <attr name="widgetsChargingViewStrokeWidth" format="dimension"/>
+        <attr name="widgetsChargingViewSpac" format="dimension"/>
+    </declare-styleable>
+</resources>

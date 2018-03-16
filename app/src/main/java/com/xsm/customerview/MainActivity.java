@@ -2,13 +2,13 @@ package com.xsm.customerview;
 
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.xsm.countdownview.CountdownView;
+import com.xiasem.spark.activity.BaseActivity;
+import com.xsm.widgets.countdownView.CountdownView;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private CountdownView mCountdownView;
     private Handler mHandler = new Handler() {
@@ -42,5 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    protected void setStatusBar() {
+        setStatusBar(R.color.colorAccent);
+    }
 }

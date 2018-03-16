@@ -5,4 +5,7 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="countdownStrokeColor">#b7b5b5</color>
+
+    <color name="testColor">#dadada</color>
+
 </resources>
