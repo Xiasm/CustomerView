@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <declare-styleable name="LoadingButton">
+        <attr name="widgetsLoadingButtonProgressSolidColor" format="color"/>
+        <attr name="widgetsLoadingButtonProgressStrokeColor" format="color"/>
+        <attr name="widgetsLoadingButtonProgressStrokeWidth" format="dimension"/>
+        <attr name="widgetsLoadingButtonProgressRingColor" format="color"/>
+        <attr name="widgetsLoadingButtonProgressRingWidth" format="dimension"/>
+        <attr name="widgetsLoadingButtonSuccessIcon" format="reference"/>
+    </declare-styleable>
+    
     <declare-styleable name="CountdownView">
         <attr name="widgetsCountdownViewStrokeColor" format="color"/>
         <attr name="widgetsCountdownViewStrokeWidth" format="dimension"/>
@@ -16,5 +25,11 @@
         <attr name="widgetsChargingViewOutCircleColor" format="color"/>
         <attr name="widgetsChargingViewStrokeWidth" format="dimension"/>
         <attr name="widgetsChargingViewSpac" format="dimension"/>
+        <attr name="widgetsChargingViewChargeLevelTextColor" format="color"/>
+        <attr name="widgetsChargingViewChargeLevelTextSize" format="dimension"/>
+        <attr name="widgetsChargingViewChargeLevelTopTextSize" format="dimension"/>
+        <attr name="widgetsChargingViewChargeLevelTopTextColor" format="color"/>
+        <attr name="widgetsChargingViewChargeLevelBottomTextSize" format="dimension"/>
+        <attr name="widgetsChargingViewChargeLevelBottomTextColor" format="color"/>
     </declare-styleable>
 </resources>

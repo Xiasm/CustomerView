@@ -76,4 +76,9 @@ public abstract class BaseView extends View {
         centerX = mPaddingLeft + mWidth / 2;
         centerY = mPaddingTop + mHeight / 2;
     }
+
+    public float dp2px(float dp) {
+        final float scale = getResources().getDisplayMetrics().density;
+        return dp * scale + 0.5f;
+    }
 }

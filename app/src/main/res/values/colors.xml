@@ -7,5 +7,5 @@
     <color name="countdownStrokeColor">#b7b5b5</color>
 
     <color name="testColor">#dadada</color>
-
+    <color name="transparent">#00ffffff</color>
 </resources>
