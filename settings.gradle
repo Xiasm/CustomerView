@@ -1,1 +1,1 @@
-include ':app', ':spark', ':widgets'
+include ':app', ':widgets', ':wheelview'

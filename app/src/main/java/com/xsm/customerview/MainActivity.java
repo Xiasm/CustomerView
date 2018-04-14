@@ -1,56 +1,68 @@
 package com.xsm.customerview;
 
-import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.xiasem.spark.activity.BaseActivity;
-import com.xsm.widgets.countdownView.CountdownView;
+import com.xsm.widgets.timepicker.TimePickerView;
+import com.xsm.widgets.timepicker.builder.TimePickerBuilder;
+import com.xsm.widgets.timepicker.listener.OnTimeSelectListener;
+
+import java.util.Date;
 
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends AppCompatActivity {
 
-    private CountdownView mCountdownView;
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case 1:
-                    number++;
-                    if (number < 100) {
-                        mCountdownView.setCurrentProgress(number);
-                        mHandler.sendEmptyMessageDelayed(1, 1000);
-                    } else {
-                        mCountdownView.setCurrentProgress(number);
-                    }
-                    break;
-            }
-        }
-    };
-
-    private int number;
+    private TimePickerView mPvTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mCountdownView = findViewById(R.id.countdownView);
-        number = 0;
-        mCountdownView.setTotalProgress(100);
-        mCountdownView.setCurrentProgress(0);
-        mHandler.sendEmptyMessageDelayed(1, 1000);
+        init();
 
     }
 
-    @Override
-    protected void setStatusBar() {
-        setStatusBar(R.color.colorAccent);
+    public void selectData(View view) {
+        mPvTime.show();
     }
 
-    public void next(View view) {
-        startActivity(new Intent(this, SecondActivity.class));
+    private void init() {
+        //选中事件回调
+//取消按钮文字
+//确认按钮文字
+//标题文字大小
+//标题文字
+//点击屏幕，点在控件外部范围时，是否取消显示
+//是否循环滚动
+//标题文字颜色
+//确定按钮文字颜色
+//取消按钮文字颜色
+//标题背景颜色 Night mode
+//滚轮背景颜色 Night mode
+//是否显示为对话框样式
+        mPvTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date, View v) {//选中事件回调
+
+            }
+        })
+
+                .setCancelText("取消")//取消按钮文字
+                .setSubmitText("确定")//确认按钮文字
+                .setTitleSize(20)//标题文字大小
+                .setTitleText("选择时间")//标题文字
+                .setOutSideCancelable(true)//点击屏幕，点在控件外部范围时，是否取消显示
+                .isCyclic(false)//是否循环滚动
+                .setTitleColor(Color.BLACK)//标题文字颜色
+                .setSubmitColor(Color.BLUE)//确定按钮文字颜色
+                .setCancelColor(Color.BLUE)//取消按钮文字颜色
+                .setTitleBgColor(0xFF666666)//标题背景颜色 Night mode
+                .setBgColor(0xFF333333)//滚轮背景颜色 Night mode
+                .setCustomerDate(new Date(System.currentTimeMillis()))
+                .setCustomerNum(60)
+                .isDialog(false)//是否显示为对话框样式
+                .build();
     }
 }
