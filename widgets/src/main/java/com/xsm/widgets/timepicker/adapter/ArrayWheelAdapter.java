@@ -28,7 +28,12 @@ public class ArrayWheelAdapter<T> implements WheelAdapter {
 	@Override
 	public Object getItem(int index) {
 		if (index >= 0 && index < items.size()) {
-			return ((TimeCarrier) items.get(index)).getShowStr();
+			T t = items.get(index);
+			if (t instanceof TimeCarrier) {
+				return ((TimeCarrier) t).getShowStr();
+			} else {
+				return t.toString();
+			}
 		}
 		return "";
 	}
@@ -40,7 +45,15 @@ public class ArrayWheelAdapter<T> implements WheelAdapter {
 
 	@Override
 	public int indexOf(Object o){
-		return items.indexOf(o);
+		int index = -1;
+		for (int i = 0; i < items.size(); i++) {
+			String showStr = ((TimeCarrier) items.get(i)).getShowStr();
+			if (showStr.equals(o.toString())) {
+				index = i;
+				break;
+			}
+		}
+		return index;
 	}
 
 }

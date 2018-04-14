@@ -40,7 +40,6 @@ public class BasePickerView {
 
     protected int animGravity = Gravity.BOTTOM;
 
-    private Dialog mDialog;
     protected View clickView;//是通过哪个View弹出的
     private boolean isAnim = true;
 

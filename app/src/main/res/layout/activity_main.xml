@@ -13,4 +13,8 @@
         android:onClick="selectData"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <com.contrarywind.view.WheelView
+        android:id="@+id/wheelview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

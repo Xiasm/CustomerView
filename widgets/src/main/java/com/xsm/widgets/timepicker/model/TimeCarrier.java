@@ -23,6 +23,17 @@ public class TimeCarrier {
     private String hh;
     private String mm;
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof TimeCarrier) {
+            TimeCarrier carrier = (TimeCarrier) obj;
+            if (this.showStr.equals(carrier.showStr)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public TimeCarrier() {
     }
 
@@ -40,12 +51,12 @@ public class TimeCarrier {
     public String getTimeFormatStr() {
         String s;
         if (type == TYPE_DAY) {
-            SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd", Locale.getDefault());
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             s = format.format(new Date(time));
         } else if (type == TYPE_HOUR) {
-            s = hh;
+            s = " " + hh;
         } else {
-            s = mm;
+            s = ":" + mm;
         }
         return s;
     }

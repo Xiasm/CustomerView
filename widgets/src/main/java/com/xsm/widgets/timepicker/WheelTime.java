@@ -4,8 +4,6 @@ import android.view.View;
 
 import com.xsm.widgets.R;
 import com.xsm.widgets.timepicker.adapter.ArrayWheelAdapter;
-import com.xsm.widgets.timepicker.adapter.NumericWheelAdapter;
-import com.xsm.widgets.timepicker.listener.ISelectTimeCallback;
 import com.xsm.widgets.timepicker.model.TimeCarrier;
 import com.xsm.widgets.timepicker.wheelview.listener.OnItemSelectedListener;
 import com.xsm.widgets.timepicker.wheelview.view.WheelView;
@@ -13,7 +11,6 @@ import com.xsm.widgets.timepicker.wheelview.view.WheelView;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -27,35 +24,23 @@ import java.util.List;
  */
 
 public class WheelTime {
-    public static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     private View view;
     private WheelView wv_day;
     private WheelView wv_hours;
     private WheelView wv_minutes;
-    private int gravity;
 
     private Date startDate;
     private List<TimeCarrier> days = new ArrayList<>();
     private List<TimeCarrier> hours = new ArrayList<>();
     private List<TimeCarrier> minutes = new ArrayList<>();
+    private int currentDay = 0;
+    private int currentHour = 0;
+    private int currentMinute = 0;
 
-    private int textSize;
-
-    //文字的颜色和分割线的颜色
-    private int textColorOut;
-    private int textColorCenter;
-    private int dividerColor;
-
-    private float lineSpacingMultiplier;
-    private WheelView.DividerType dividerType;
-
-    private ISelectTimeCallback mSelectChangeCallback;
-
-    public WheelTime(View view, int gravity, int textSize) {
+    public WheelTime(View view) {
         super();
         this.view = view;
-        this.gravity = gravity;
-        this.textSize = textSize;
         setView(view);
     }
 
@@ -66,36 +51,58 @@ public class WheelTime {
         setSolar(date1, num);
     }
 
+    private static final String TAG = "WheelTime";
     private void setSolar(Date date, int num) {
-        List<TimeCarrier> minute = getMinute();
         wv_minutes = (WheelView) view.findViewById(R.id.min);
+        List<TimeCarrier> minute = getMinute();
         minutes.clear();
         minutes.addAll(minute);
         wv_minutes.setAdapter(new ArrayWheelAdapter<TimeCarrier>(minutes));
 
-        List<TimeCarrier> hour = getHour(date.getHours());
         wv_hours = (WheelView) view.findViewById(R.id.hour);
+        List<TimeCarrier> hour = getHour(date.getHours());
         hours.clear();
         hours.addAll(hour);
         wv_hours.setAdapter(new ArrayWheelAdapter<TimeCarrier>(hours));
 
-        List<TimeCarrier> day = getDay(date, num);
         wv_day = (WheelView) view.findViewById(R.id.day);
+        List<TimeCarrier> day = getDay(date, num);
         days.clear();
         days.addAll(day);
         wv_day.setAdapter(new ArrayWheelAdapter<TimeCarrier>(days));
 
+        wv_minutes.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(int index) {
+                currentMinute = index;
+            }
+        });
+
+        wv_hours.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(int index) {
+                currentHour = index;
+            }
+        });
 
         wv_day.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(int index) {
                 if (index == 0) {
                     wv_hours.setAdapter(new ArrayWheelAdapter<TimeCarrier>(getHour(startDate.getHours())));
+                    wv_hours.setCurrentItem(0);
                 } else {
                     wv_hours.setAdapter(new ArrayWheelAdapter<TimeCarrier>(getHour()));
+                    wv_hours.setCurrentItem(0);
                 }
+                currentDay = index;
             }
         });
+
+        wv_day.setCurrentItem(0);
+        wv_hours.setCurrentItem(0);
+        wv_minutes.setCurrentItem(0);
+
     }
 
     private List<TimeCarrier> getDay(Date date, int num) {
@@ -172,6 +179,11 @@ public class WheelTime {
                 TimeCarrier timeCarrier = new TimeCarrier();
                 timeCarrier.setType(TimeCarrier.TYPE_HOUR);
                 timeCarrier.setShowStr(String.valueOf(i) + "点");
+                if (i <= 9) {
+                    timeCarrier.setHh("0" + String.valueOf(i));
+                } else {
+                    timeCarrier.setHh(String.valueOf(i));
+                }
                 list.add(timeCarrier);
             }
         }
@@ -203,121 +215,10 @@ public class WheelTime {
         this.view = view;
     }
 
-    public void setSelectChangeCallback(ISelectTimeCallback mSelectChangeCallback) {
-        this.mSelectChangeCallback = mSelectChangeCallback;
-    }
-
     public String getTime() {
-        return days.get(wv_day.getCurrentItem()).getTimeFormatStr() + hours.get(wv_hours.getCurrentItem()).getTimeFormatStr() + minutes.get(wv_minutes.getCurrentItem()).getTimeFormatStr();
-    }
-
-    /**
-     * 设置是否循环滚动
-     *
-     * @param cyclic
-     */
-    public void setCyclic(boolean cyclic) {
-        wv_day.setCyclic(cyclic);
-        wv_hours.setCyclic(cyclic);
-        wv_minutes.setCyclic(cyclic);
-    }
-
-    /**
-     * 设置间距倍数,但是只能在1.0-4.0f之间
-     *
-     * @param lineSpacingMultiplier
-     */
-    public void setLineSpacingMultiplier(float lineSpacingMultiplier) {
-        this.lineSpacingMultiplier = lineSpacingMultiplier;
-        setLineSpacingMultiplier();
-    }
-
-    /**
-     * 设置分割线的颜色
-     *
-     * @param dividerColor
-     */
-    public void setDividerColor(int dividerColor) {
-        this.dividerColor = dividerColor;
-        setDividerColor();
-    }
-
-    /**
-     * 设置分割线的类型
-     *
-     * @param dividerType
-     */
-    public void setDividerType(WheelView.DividerType dividerType) {
-        this.dividerType = dividerType;
-        setDividerType();
-    }
-
-    /**
-     * 设置分割线之间的文字的颜色
-     *
-     * @param textColorCenter
-     */
-    public void setTextColorCenter(int textColorCenter) {
-        this.textColorCenter = textColorCenter;
-        setTextColorCenter();
-    }
-
-    /**
-     * 设置分割线以外文字的颜色
-     *
-     * @param textColorOut
-     */
-    public void setTextColorOut(int textColorOut) {
-        this.textColorOut = textColorOut;
-        setTextColorOut();
-    }
-
-    /**
-     * @param isCenterLabel 是否只显示中间选中项的
-     */
-    public void isCenterLabel(boolean isCenterLabel) {
-        wv_day.isCenterLabel(isCenterLabel);
-        wv_hours.isCenterLabel(isCenterLabel);
-        wv_minutes.isCenterLabel(isCenterLabel);
-    }
-
-
-    private void setContentTextSize() {
-        wv_day.setTextSize(textSize);
-        wv_hours.setTextSize(textSize);
-        wv_minutes.setTextSize(textSize);
-    }
-
-    private void setTextColorOut() {
-        wv_day.setTextColorOut(textColorOut);
-        wv_hours.setTextColorOut(textColorOut);
-        wv_minutes.setTextColorOut(textColorOut);
-    }
-
-    private void setTextColorCenter() {
-        wv_day.setTextColorCenter(textColorCenter);
-        wv_hours.setTextColorCenter(textColorCenter);
-        wv_minutes.setTextColorCenter(textColorCenter);
-    }
-
-    private void setDividerColor() {
-        wv_day.setDividerColor(dividerColor);
-        wv_hours.setDividerColor(dividerColor);
-        wv_minutes.setDividerColor(dividerColor);
-    }
-
-    private void setDividerType() {
-
-        wv_day.setDividerType(dividerType);
-        wv_hours.setDividerType(dividerType);
-        wv_minutes.setDividerType(dividerType);
-
-    }
-
-    private void setLineSpacingMultiplier() {
-        wv_day.setLineSpacingMultiplier(lineSpacingMultiplier);
-        wv_hours.setLineSpacingMultiplier(lineSpacingMultiplier);
-        wv_minutes.setLineSpacingMultiplier(lineSpacingMultiplier);
+        return days.get(wv_day.getCurrentItem()).getTimeFormatStr() +
+                hours.get(wv_hours.getCurrentItem()).getTimeFormatStr() +
+                minutes.get(wv_minutes.getCurrentItem()).getTimeFormatStr();
     }
 
 }

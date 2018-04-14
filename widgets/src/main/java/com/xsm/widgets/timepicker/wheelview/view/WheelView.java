@@ -17,8 +17,6 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 
-
-import com.xsm.widgets.R;
 import com.xsm.widgets.timepicker.wheelview.adapter.WheelAdapter;
 import com.xsm.widgets.timepicker.wheelview.interfaces.IPickerViewData;
 import com.xsm.widgets.timepicker.wheelview.listener.LoopViewGestureListener;
@@ -134,7 +132,7 @@ public class WheelView extends View {
     public WheelView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        textSize = getResources().getDimensionPixelSize(R.dimen.pickerview_textsize);//默认大小
+        textSize = getResources().getDimensionPixelSize(com.contrarywind.view.R.dimen.pickerview_textsize);//默认大小
 
         DisplayMetrics dm = getResources().getDisplayMetrics();
         float density = dm.density; // 屏幕密度比（0.75/1.0/1.5/2.0/3.0）
@@ -152,13 +150,13 @@ public class WheelView extends View {
         }
 
         if (attrs != null) {
-            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.pickerview, 0, 0);
-            mGravity = a.getInt(R.styleable.pickerview_wheelview_gravity, Gravity.CENTER);
-            textColorOut = a.getColor(R.styleable.pickerview_wheelview_textColorOut, 0xFFa8a8a8);
-            textColorCenter = a.getColor(R.styleable.pickerview_wheelview_textColorCenter, 0xFF2a2a2a);
-            dividerColor = a.getColor(R.styleable.pickerview_wheelview_dividerColor, 0xFFd5d5d5);
-            textSize = a.getDimensionPixelOffset(R.styleable.pickerview_wheelview_textSize, textSize);
-            lineSpacingMultiplier = a.getFloat(R.styleable.pickerview_wheelview_lineSpacingMultiplier, lineSpacingMultiplier);
+            TypedArray a = context.obtainStyledAttributes(attrs, com.contrarywind.view.R.styleable.pickerview, 0, 0);
+            mGravity = a.getInt(com.contrarywind.view.R.styleable.pickerview_wheelview_gravity, Gravity.CENTER);
+            textColorOut = a.getColor(com.contrarywind.view.R.styleable.pickerview_wheelview_textColorOut, 0xFFa8a8a8);
+            textColorCenter = a.getColor(com.contrarywind.view.R.styleable.pickerview_wheelview_textColorCenter, 0xFF2a2a2a);
+            dividerColor = a.getColor(com.contrarywind.view.R.styleable.pickerview_wheelview_dividerColor, 0xFFd5d5d5);
+            textSize = a.getDimensionPixelOffset(com.contrarywind.view.R.styleable.pickerview_wheelview_textSize, textSize);
+            lineSpacingMultiplier = a.getFloat(com.contrarywind.view.R.styleable.pickerview_wheelview_lineSpacingMultiplier, lineSpacingMultiplier);
             a.recycle();//回收内存
         }
 
